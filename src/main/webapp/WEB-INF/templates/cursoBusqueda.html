@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Busqueda de Cursos</title>
+    <style>
+        body {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{cursoBusqueda.do}" method="post">
+    <h1 th:align="center">Busqueda de Cursos</h1>
+    <br>
+    <table border="1" class="table table-dark table-bordered table-hover">
+        <thead>
+        <tr class="success">
+            <th>Condici&oacute;n</th>
+            <th>Valor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input type="radio" name="tipo" value="estado" th:checked="${param.tipo == 'estado'}" required="true"/>Por Estado:</td>
+            <td>
+                <select name="estado">
+                    <option value="0" th:selected="${param.estado == '0'}">CREADO</option>
+                    <option value="1" th:selected="${param.estado == '1'}">EN PROCESO DE VENTA</option>
+                    <option value="2" th:selected="${param.estado == '2'}">COMPLETO</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="tipo" value="incompleto" th:checked="${param.tipo == 'incompleto'}"/>Incompletos</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="tipo" value="porfecha" th:checked="${param.tipo == 'porfecha'}"/>Por fecha:</td>
+            <td><input type="date" name="fecha" th:value="${param.fecha}" /></td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="tipo" value="faltante" th:checked="${param.tipo == 'faltante'}"/>Alumnos faltantes:</td>
+            <td><input type="number" name="numero" th:value="${param.numero}" /></td>
+        </tr>
+        <tr>
+            <td><input type="radio" name="tipo" value="nombre" th:checked="${param.tipo == 'nombre'}"/>Por nombre:</td>
+            <td><input type="text" name="cadena" th:value="${param.cadena}" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="align-content: center">
+                <input type="submit" value="Consultar" class="btn btn-primary btn-lg active"/>
+                &nbsp;&nbsp;
+                <a th:href="@{'menu.do'}" class="btn btn-primary btn-lg button-submit">Regresar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+<br>
+<div class="table-responsive" th:if="${lista != null}">
+
+    <h2 th:text="|Filtro de busqueda: | + ${param.tipo}" th:align="center">Filtro</h2>
+    <br>
+    <table class="table table-responsive table-sm table-dark table-striped table-bordered table-hover">
+        <thead>
+        <tr class="info">
+            <th>C&oacute;digo</th>
+            <th>Nombre</th>
+            <th>Fecha Inicio</th>
+            <th>M&iacute;nimo alumnos</th>
+            <th>Inscritos</th>
+            <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="curso : ${lista}">
+            <th th:text="${curso.idCurso}"></th>
+            <th th:text="${curso.nomCurso}"></th>
+            <th th:text="${#dates.format(curso.fechaInicio, 'dd-MM-yyyy')}"></th>
+            <!--<td th:text="${#dates.format(curso.fechaInicio, 'dd/MMM/yyyy')}"></td>-->
+            <th th:text="${curso.alumnosMin}"></th>
+            <th th:text="${curso.alumnosAct}"></th>
+            <th th:text="${curso.estado}"></th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

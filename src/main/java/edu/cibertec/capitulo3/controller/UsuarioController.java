@@ -41,10 +41,16 @@ public class UsuarioController {
         if (ue == null) {
             mv = new ModelAndView("login", "msgError", "Usuario y clave no existen. Vuelva a intentar!");
         } else {
-            mv = new ModelAndView("usuarioLista", "lista", usuarioService.getListaUsuarios());
+            /*mv = new ModelAndView("usuarioLista", "lista", usuarioService.getListaUsuarios());*/
+            mv = new ModelAndView("menu", "usuario", ue);
             mv.addObject("contador", 0);
         }
         return mv;
+    }
+
+    @RequestMapping("menu")
+    public ModelAndView mostrarMenu(@ModelAttribute("usuarioBean") UsuarioEntity ue) {
+        return new ModelAndView("menu", "usuario", ue);
     }
 
     @RequestMapping("usuarioCrear")

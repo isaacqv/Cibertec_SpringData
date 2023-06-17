@@ -6,8 +6,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Mantenimiento de Usuario</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -21,11 +20,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <table class="table table-responsive table-sm table-dark table-striped table-bordered table-hover">
                 <thead>
                     <tr class="info">
-                        <th>Usuario</th>
-                        <th>Clave</th>
-                        <th>Nombre Completo</th>
+                        <th>
+                            <a th:href="@{usuarioListarPag.do(pag=0, orden=usuario)}">Usuario</a>
+                        </th>
+                        <th>
+                            <a th:href="@{usuarioListarPag.do(pag=0, orden=clave)}">Clave</a>
+                        </th>
+                        <th>
+                            <a th:href="@{usuarioListarPag.do(pag=0, orden=nombreCompleto)}">Nombre completo</a>
+                        </th>
                         <th>Foto</th>
-                        <th>Opcion</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +45,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                             <td>
                                 <span th:if="${user.fotoBase64==null}" th:text="|Sin foto|" th:remove="tag">Sin foto</span>
                                 <img th:src="@{'data:image/jpeg;base64,'+${user.fotoBase64}}" th:if="${user.fotoBase64!=null}"
-                                     height="75" width="75"/>
+                                     height="50" width="50"/>
                             </td>
                             <td>
                                 <a th:href="@{'usuarioEli.do?codigoUsuario=' + ${user.usuario}}"  class="btn btn-warning">Eliminar</a>
@@ -52,8 +57,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             </div>
             <br/>
             <a th:href="@{'usuarioListarPag.do?pag=0'}" th:text="|Primera p&aacute;gina|">Primera</a>
+            <!--<a th:href="@{usuarioListarPag.do(pag=0,orden=${param.orden})}" th:text="|Primera p&aacute;gina|" >Primera</a>-->
             &nbsp;&nbsp;
             <a th:href="@{'usuarioListarPag.do?pag=1'}" th:text="|Segunda p&aacute;gina|">Segunda</a>
+            <!--<a th:href="@{usuarioListarPag.do(pag=1,orden=${param.orden})}" th:text="|Segunda p&aacute;gina|" >Segunda</a>-->
             &nbsp;&nbsp;
             <a th:href="@{'usuarioCrear.do'}" class="btn btn-primary btn-lg active" >Crear Usuario</a>
             <br>
