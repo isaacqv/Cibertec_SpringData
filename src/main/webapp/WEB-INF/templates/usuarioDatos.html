@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Datos del usuario</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style type="text/css">
+            .formFieldError{
+                background: #FFC;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row d-flex justify-content-center mx-auto" >
+                <h1>Datos del Usuario</h1>
+                <br>
+                <div class="col-md-6 mx-auto">
+                    <form th:object="${usuarioBean}" th:action="@{usuarioGrabar.do}" enctype="multipart/form-data" method="post">
+                        <table>
+                            <tr>
+                                <td><label for="usuario">Usuario:</label></td>
+                                <td><input id="usuario" th:field="*{usuario}" class="form-control text-box"></td>
+                                <td th:if="${#fields.hasErrors('usuario')}" th:errorclass="formFieldError" th:errors="*{usuario}"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="clave">Clave:</label></td>
+                                <td><input id="clave" th:field="*{clave}" class="form-control text-box"></td>
+                                <td th:if="${#fields.hasErrors('clave')}" th:errorclass="formFieldError" th:errors="*{clave}"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="nombreCompleto">Nombre Completo:</label></td>
+                                <td><input id="nombreCompleto" th:field="*{nombreCompleto}" class="form-control text-box"></td>
+                                <td th:if="${#fields.hasErrors('nombreCompleto')}" th:errorclass="formFieldError" th:errors="*{nombreCompleto}"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="archivo">Subir foto:</label></td>
+                                <td><input type="file" id="archivo" name="archivo" class="form-control text-box"></td>
+                            </tr>
+                            <tr>
+                                <td><label>Visualizar foto actual:</label></td>
+                                <td><a th:href="@{'fotoMostrar.do?codigoUsuario='+${usuarioBean.usuario}}" th:text="|Ver foto|">Ver foto</a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="submit" th:value="${accion}" class="btn btn-primary button-submit"/>
+                                </td>
+                                <td>
+                                    <a th:href="@{'usuarioListar.do'}" class="btn btn-primary button-submit">Cancelar</a>
+                                </td>
+                                <td colspan="1">
+                                    <!--<input type="submit" value="Insertar" class="btn btn-primary button-submit"/>-->
+                                </td>
+                            </tr>
+                            </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

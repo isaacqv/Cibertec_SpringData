@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Mantenimiento de Usuario</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        
+        <h1>Listado de Usuarios</h1>
+        <br>
+        
+        <div class="table-responsive">
+            <table class="table table-responsive table-sm table-dark table-striped table-bordered table-hover">
+                <thead>
+                    <tr class="info">
+                        <th>Usuario</th>
+                        <th>Clave</th>
+                        <th>Nombre Completo</th>
+                        <th>Foto</th>
+                        <th>Opcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr th:each="user:${lista}">
+                        <td>
+                            <a th:href="@{|usuarioMod.do?codigoUsuario=| + ${user.usuario}}" th:text="${user.usuario}"/>
+                                <!--<a th:href="@{'usuarioMod.do?codigoUsuario='+${user.usuario}}" th:text="${user.usuario}"></a>-->
+                            </td>
+                            <td th:text="${user.clave}"></td>
+                            <td th:text="${user.nombreCompleto}"></td>
+                            <td>
+                                <span th:if="${user.fotoBase64==null}" th:text="|Sin foto|" th:remove="tag">Sin foto</span>
+                                <img th:src="@{'data:image/jpeg;base64,'+${user.fotoBase64}}" th:if="${user.fotoBase64!=null}"
+                                     height="75" width="75"/>
+                            </td>
+                            <td>
+                                <a th:href="@{'usuarioEli.do?codigoUsuario=' + ${user.usuario}}"  class="btn btn-warning">Eliminar</a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <br/>
+            <a th:href="@{'usuarioListarPag.do?pag=0'}" th:text="|Primera p&aacute;gina|">Primera</a>
+            &nbsp;&nbsp;
+            <a th:href="@{'usuarioListarPag.do?pag=1'}" th:text="|Segunda p&aacute;gina|">Segunda</a>
+            &nbsp;&nbsp;
+            <a th:href="@{'usuarioCrear.do'}" class="btn btn-primary btn-lg active" >Crear Usuario</a>
+            <br>
+            <h3 th:text="'Se han creado en esta sesi&oacute;n '+${contador}+' usuarios!'"></h3>
+
+        </body>
+    </html>

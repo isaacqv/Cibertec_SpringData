@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Foto usuario</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            padding: 20px;
+            background-color: #333; /* Color de fondo oscuro */
+            color: #fff; /* Color de texto claro */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .btn-back {
+            display: block;
+            margin-bottom: 20px;
+            background-color: #777; /* Color de fondo del botón */
+            border-color: #777; /* Color del borde del botón */
+            color: #fff;
+        }
+
+        .btn-back:hover,
+        .btn-back:focus {
+            background-color: #555; /* Color de fondo del botón al pasar el mouse o enfocar */
+            border-color: #555; /* Color del borde del botón al pasar el mouse o enfocar */
+        }
+
+        .no-photo {
+            text-align: center;
+        }
+
+        .user-photo {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Foto del Usuario</h2>
+
+    <h3 th:unless="${usuario.foto}" th:text="'Usuario a&uacute;n sin foto'" class="no-photo"></h3>
+
+    <img th:src="@{'data:image/jpeg;base64,'+ ${foto64}}" th:if="${usuario.foto}" class="user-photo" alt="Foto del usuario"/>
+
+    <a th:href="@{'usuarioMod.do?codigoUsuario='+${usuario.usuario}}" class="btn btn-outline-primary btn-back">Regresar</a>
+
+</div>
+</body>
+</html>
